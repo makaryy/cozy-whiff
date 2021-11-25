@@ -33,7 +33,7 @@ function Item({ image, desc, title, imageOnRight, url }) {
                         </CardContent>
                         <CardMedia
                             component="img"
-                            height="275"
+                            height="350"
                             image={image}
                             alt={title}
                         />
@@ -50,7 +50,7 @@ function Item({ image, desc, title, imageOnRight, url }) {
                     >
                         <CardMedia
                             component="img"
-                            height="275"
+                            height="350"
                             image={image}
                             alt={title}
                         />

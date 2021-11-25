@@ -2,14 +2,15 @@ import "./App.css";
 import Header from "./components/Header";
 import Products from "./components/Products";
 import Contact from "./components/Contact";
-import TopBar from "./components/TopBar";
+import NavBar from "./components/NavBar";
 import About from "./components/About";
-import { CssBaseline, Container } from "@mui/material";
+import { CssBaseline, Container, Divider } from "@mui/material";
 import {
     StyledEngineProvider,
     createTheme,
     ThemeProvider
 } from "@mui/material/styles";
+import ksiazkaswieca from "./images/ksiazkaswieca.jpg";
 
 const theme = createTheme({
     palette: {
@@ -31,7 +32,7 @@ function App() {
                 <ThemeProvider theme={theme}>
                     <div className="main">
                         <Container className="container" maxWidth="lg">
-                            <TopBar />
+                            <NavBar />
                             <Header />
                             <About />
                             <Products />
