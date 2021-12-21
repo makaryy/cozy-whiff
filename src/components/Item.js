@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../App.css";
 
 import {
@@ -7,16 +7,28 @@ import {
     CardActionArea,
     Typography,
     CardContent,
+    Box,
     Link
 } from "@mui/material";
+import { Switch, Route } from "react-router-dom";
+import Details from "./Details";
 
-function Item({ image, desc, title, imageOnRight, url }) {
+function Item({ image, desc, desc2, title, imageOnRight, url }) {
+    const [openDetails, setOpenDetails] = useState(false);
+
+    const closeDetails = () => {
+        setOpenDetails(false);
+    };
+
     if (imageOnRight) {
         return (
-            <Link onClick={() => window.open(url)}>
+            <Box>
                 <Card className="item" elevation={10}>
                     <CardActionArea
                         sx={{ display: "flex", flexDirection: "row" }}
+                        onClick={() => {
+                            setOpenDetails(true);
+                        }}
                     >
                         <CardContent className="card-content">
                             <Typography
@@ -39,14 +51,26 @@ function Item({ image, desc, title, imageOnRight, url }) {
                         />
                     </CardActionArea>
                 </Card>
-            </Link>
+                <Details
+                    title={title}
+                    desc={desc}
+                    desc2={desc2}
+                    image={image}
+                    url={url}
+                    open={openDetails}
+                    close={closeDetails}
+                />
+            </Box>
         );
     } else {
         return (
-            <Link onClick={() => window.open(url)}>
+            <Box>
                 <Card className="item" elevation={10}>
                     <CardActionArea
                         sx={{ display: "flex", flexDirection: "row" }}
+                        onClick={() => {
+                            setOpenDetails(true);
+                        }}
                     >
                         <CardMedia
                             component="img"
@@ -69,7 +93,16 @@ function Item({ image, desc, title, imageOnRight, url }) {
                         </CardContent>
                     </CardActionArea>
                 </Card>
-            </Link>
+                <Details
+                    title={title}
+                    desc={desc}
+                    desc2={desc2}
+                    image={image}
+                    url={url}
+                    open={openDetails}
+                    close={closeDetails}
+                />
+            </Box>
         );
     }
 }

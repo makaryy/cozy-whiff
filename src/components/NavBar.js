@@ -43,7 +43,7 @@ function TopBar() {
     // };
     return (
         //<HideOnScroll>
-        <AppBar>
+        <AppBar elevation={10} className="app-bar">
             <Toolbar className="toolbar">
                 {/* <Typography variant="h6" component="div"> */}
                 <Scroll
@@ -85,7 +85,7 @@ function TopBar() {
                     to="products"
                     smooth={true}
                     spy={true}
-                    offset={-50}
+                    offset={-75}
                     onSetActive={() => setActive("products")}
                 >
                     <Button
@@ -99,24 +99,24 @@ function TopBar() {
                         Produkty
                     </Button>
                 </Scroll>
-                <Scroll
-                    to="contact"
+                {/* <Scroll
+                    to="footer"
                     smooth={true}
                     spy={true}
                     offset={-75}
-                    onSetActive={() => setActive("contact")}
+                    onSetActive={() => setActive("footer")}
                 >
                     <Button
                         color="secondary"
                         className={
-                            active === "contact"
+                            active === "footer"
                                 ? "navButton activeComponent"
                                 : "navButton"
                         }
                     >
                         Kontakt
                     </Button>
-                </Scroll>
+                </Scroll> */}
                 {/* </Typography> */}
             </Toolbar>
         </AppBar>

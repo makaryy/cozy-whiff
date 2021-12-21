@@ -1,16 +1,19 @@
 import "./App.css";
 import Header from "./components/Header";
 import Products from "./components/Products";
-import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import About from "./components/About";
-import { CssBaseline, Container, Divider } from "@mui/material";
+import { CssBaseline, Container } from "@mui/material";
 import {
     StyledEngineProvider,
     createTheme,
     ThemeProvider
 } from "@mui/material/styles";
 import ksiazkaswieca from "./images/ksiazkaswieca.jpg";
+import ContactForm from "./components/ContactForm";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Details from "./components/Details";
 
 const theme = createTheme({
     palette: {
@@ -30,15 +33,32 @@ function App() {
         <CssBaseline>
             <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={theme}>
-                    <div className="main">
-                        <Container className="container" maxWidth="lg">
-                            <NavBar />
-                            <Header />
-                            <About />
-                            <Products />
-                            <Contact />
-                        </Container>
-                    </div>
+                    <Router>
+                        <div className="main">
+                            <Container className="container" maxWidth="lg">
+                                <Switch>
+                                    <Route exact path="/">
+                                        <NavBar />
+                                        <Header />
+                                        <About />
+                                        <Products />
+                                        <Footer />
+                                    </Route>
+                                    <Route path="/contactform">
+                                        <ContactForm />
+                                    </Route>
+                                </Switch>
+                                {/* <Route path="/details">
+                                    <Details
+                                    // image={image}
+                                    // desc={desc}
+                                    // url={url}
+                                    // title={title}
+                                    />
+                                </Route> */}
+                            </Container>
+                        </div>
+                    </Router>
                 </ThemeProvider>
             </StyledEngineProvider>
         </CssBaseline>
