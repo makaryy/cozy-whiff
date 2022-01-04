@@ -2,126 +2,190 @@ import React, { useState } from "react";
 import {
     AppBar,
     Toolbar,
-    Typography,
-    useScrollTrigger,
-    Slide,
-    Button
+    Button,
+    useMediaQuery,
+    Box,
+    Menu,
+    MenuItem,
+    Fade,
+    IconButton
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Link as Scroll } from "react-scroll";
+import { useTheme } from "@mui/styles";
 import "../App.css";
 
-function HideOnScroll(props) {
-    const { children, window } = props;
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
-    const trigger = useScrollTrigger({
-        target: window ? window() : undefined
-    });
-
-    return (
-        <Slide appear={false} direction="down" in={!trigger}>
-            {children}
-        </Slide>
-    );
-}
-
-function TopBar() {
-    // const [value, setValue] = useState("header");
-    // const [scrollTo, setScrollTo] = useState("header");
+function NavBar() {
     const [active, setActive] = useState("header");
+    const theme = useTheme();
+    const overMd = useMediaQuery(theme.breakpoints.up("md"));
 
-    // const handleChange = (event, newValue) => {
-    //     setValue(newValue);
-    //     // setScrollTo(newValue);
-    // };
-    // const handleScroll = (event, newValue) => {
-    //     setActive(newValue);
-    //     // setTimeout(() => {
-    //     //     setScrollTo("");
-    //     // }, 1000);
-    // };
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClick = () => {
+        setAnchorEl(null);
+    };
+
     return (
-        //<HideOnScroll>
         <AppBar elevation={10} className="app-bar">
             <Toolbar className="toolbar">
-                {/* <Typography variant="h6" component="div"> */}
-                <Scroll
-                    to="header"
-                    smooth={true}
-                    spy={true}
-                    onSetActive={() => setActive("header")}
-                >
-                    <Button
-                        color="secondary"
-                        className={
-                            active === "header"
-                                ? "navButton activeComponent"
-                                : "navButton"
-                        }
-                    >
-                        Początek
-                    </Button>
-                </Scroll>
-                <Scroll
-                    to="about"
-                    smooth={true}
-                    spy={true}
-                    offset={-75}
-                    onSetActive={() => setActive("about")}
-                >
-                    <Button
-                        color="secondary"
-                        className={
-                            active === "about"
-                                ? "navButton activeComponent"
-                                : "navButton"
-                        }
-                    >
-                        O nas
-                    </Button>
-                </Scroll>
-                <Scroll
-                    to="products"
-                    smooth={true}
-                    spy={true}
-                    offset={-75}
-                    onSetActive={() => setActive("products")}
-                >
-                    <Button
-                        color="secondary"
-                        className={
-                            active === "products"
-                                ? "navButton activeComponent"
-                                : "navButton"
-                        }
-                    >
-                        Produkty
-                    </Button>
-                </Scroll>
-                {/* <Scroll
-                    to="footer"
-                    smooth={true}
-                    spy={true}
-                    offset={-75}
-                    onSetActive={() => setActive("footer")}
-                >
-                    <Button
-                        color="secondary"
-                        className={
-                            active === "footer"
-                                ? "navButton activeComponent"
-                                : "navButton"
-                        }
-                    >
-                        Kontakt
-                    </Button>
-                </Scroll> */}
-                {/* </Typography> */}
+                {overMd ? (
+                    <Box>
+                        <Scroll
+                            to="header"
+                            smooth={true}
+                            spy={true}
+                            onSetActive={() => setActive("header")}
+                        >
+                            <Button
+                                color="secondary"
+                                className={
+                                    active === "header"
+                                        ? "navButton activeComponent"
+                                        : "navButton"
+                                }
+                            >
+                                Początek
+                            </Button>
+                        </Scroll>
+                        <Scroll
+                            to="about"
+                            smooth={true}
+                            spy={true}
+                            offset={-75}
+                            onSetActive={() => setActive("about")}
+                        >
+                            <Button
+                                color="secondary"
+                                className={
+                                    active === "about"
+                                        ? "navButton activeComponent"
+                                        : "navButton"
+                                }
+                            >
+                                O nas
+                            </Button>
+                        </Scroll>
+                        <Scroll
+                            to="products"
+                            smooth={true}
+                            spy={true}
+                            offset={-75}
+                            onSetActive={() => setActive("products")}
+                        >
+                            <Button
+                                color="secondary"
+                                className={
+                                    active === "products"
+                                        ? "navButton activeComponent"
+                                        : "navButton"
+                                }
+                            >
+                                Produkty
+                            </Button>
+                        </Scroll>
+                    </Box>
+                ) : (
+                    <Box>
+                        <IconButton onClick={handleClick}>
+                            <MenuIcon
+                                sx={{ fontSize: "2.5rem", color: "white" }}
+                            />
+                        </IconButton>
+
+                        <Menu
+                            id="fade-menu"
+                            className="menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleMenuClick}
+                            TransitionComponent={Fade}
+                            MenuListProps={{
+                                disablePadding: true,
+                                sx: {
+                                    backgroundColor: "black",
+                                    paddingInlineStart: "0px"
+                                }
+                            }}
+                            sx={{
+                                width: "100vw"
+                            }}
+                        >
+                            <MenuItem className="menu-item">
+                                <Scroll
+                                    className="scroll-mobile"
+                                    to="header"
+                                    smooth={true}
+                                    spy={true}
+                                    onSetActive={() => setActive("header")}
+                                >
+                                    <Button
+                                        color="secondary"
+                                        onClick={handleMenuClick}
+                                        className={
+                                            active === "header"
+                                                ? "navButtonMobile activeComponentMobile"
+                                                : "navButtonMobile"
+                                        }
+                                    >
+                                        Początek
+                                    </Button>
+                                </Scroll>
+                            </MenuItem>
+                            <MenuItem className="menu-item">
+                                <Scroll
+                                    className="scroll-mobile"
+                                    to="about"
+                                    smooth={true}
+                                    spy={true}
+                                    offset={-75}
+                                    onSetActive={() => setActive("about")}
+                                >
+                                    <Button
+                                        color="secondary"
+                                        onClick={handleMenuClick}
+                                        className={
+                                            active === "about"
+                                                ? "navButtonMobile activeComponentMobile"
+                                                : "navButtonMobile"
+                                        }
+                                    >
+                                        O nas
+                                    </Button>
+                                </Scroll>
+                            </MenuItem>
+                            <MenuItem className="menu-item">
+                                <Scroll
+                                    className="scroll-mobile"
+                                    to="products"
+                                    smooth={true}
+                                    spy={true}
+                                    offset={-75}
+                                    onSetActive={() => setActive("products")}
+                                >
+                                    <Button
+                                        color="secondary"
+                                        onClick={handleMenuClick}
+                                        className={
+                                            active === "products"
+                                                ? "navButtonMobile activeComponentMobile"
+                                                : "navButtonMobile"
+                                        }
+                                    >
+                                        Produkty
+                                    </Button>
+                                </Scroll>
+                            </MenuItem>
+                        </Menu>
+                    </Box>
+                )}
             </Toolbar>
         </AppBar>
-        //</HideOnScroll>
     );
 }
 
-export default TopBar;
+export default NavBar;

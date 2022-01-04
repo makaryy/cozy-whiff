@@ -8,10 +8,10 @@ import {
     Typography,
     CardContent,
     Box,
-    Link
+    useMediaQuery
 } from "@mui/material";
-import { Switch, Route } from "react-router-dom";
 import Details from "./Details";
+import { useTheme } from "@mui/styles";
 
 function Item({ image, desc, desc2, title, imageOnRight, url }) {
     const [openDetails, setOpenDetails] = useState(false);
@@ -19,8 +19,57 @@ function Item({ image, desc, desc2, title, imageOnRight, url }) {
     const closeDetails = () => {
         setOpenDetails(false);
     };
+    const theme = useTheme();
+    const overMd = useMediaQuery(theme.breakpoints.up("md"));
 
-    if (imageOnRight) {
+    if (!overMd) {
+        return (
+            <Box>
+                <Card className="item" elevation={10}>
+                    <CardActionArea
+                        sx={{ display: "flex", flexDirection: "column" }}
+                        onClick={() => {
+                            setOpenDetails(true);
+                        }}
+                    >
+                        <CardContent>
+                            <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="div"
+                                color="white"
+                                align="center"
+                            >
+                                {title}
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                color="white"
+                                align="center"
+                            >
+                                {desc}
+                            </Typography>
+                        </CardContent>
+                        <CardMedia
+                            component="img"
+                            height="350"
+                            image={image}
+                            alt={title}
+                        />
+                    </CardActionArea>
+                </Card>
+                <Details
+                    title={title}
+                    desc={desc}
+                    desc2={desc2}
+                    image={image}
+                    url={url}
+                    open={openDetails}
+                    close={closeDetails}
+                />
+            </Box>
+        );
+    } else if (imageOnRight) {
         return (
             <Box>
                 <Card className="item" elevation={10}>
@@ -30,7 +79,7 @@ function Item({ image, desc, desc2, title, imageOnRight, url }) {
                             setOpenDetails(true);
                         }}
                     >
-                        <CardContent className="card-content">
+                        <CardContent>
                             <Typography
                                 gutterBottom
                                 variant="h5"
@@ -78,7 +127,7 @@ function Item({ image, desc, desc2, title, imageOnRight, url }) {
                             image={image}
                             alt={title}
                         />
-                        <CardContent className="card-content">
+                        <CardContent>
                             <Typography
                                 gutterBottom
                                 variant="h5"
