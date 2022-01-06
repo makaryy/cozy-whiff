@@ -44,18 +44,10 @@ function App() {
                                         <Products />
                                         <Footer />
                                     </Route>
-                                    <Route path="/contactform">
+                                    <Route path="/kontakt">
                                         <ContactForm />
                                     </Route>
                                 </Switch>
-                                {/* <Route path="/details">
-                                    <Details
-                                    // image={image}
-                                    // desc={desc}
-                                    // url={url}
-                                    // title={title}
-                                    />
-                                </Route> */}
                             </Container>
                         </div>
                     </Router>

@@ -207,7 +207,7 @@
 
 .details-paper {
     position: absolute;
-    width: 60vw;
+    width: 70vw;
     height: 70vh;
     z-index: 99999999;
     background-color: var(--paperbgcolor);
@@ -243,7 +243,7 @@
     align-self: center;
     padding: 2rem;
     margin-bottom: 2rem;
-    max-width: 20vw;
+    width: 100%;
 }
 .details-desc2 {
     grid-column: 2;
@@ -252,7 +252,7 @@
     justify-self: center;
     text-align: center;
     padding: 2rem;
-    max-width: 20vw;
+    width: 100%;
 }
 
 .details-link {
@@ -268,4 +268,26 @@
     color: white;
     justify-content: center;
     align-items: center;
+}
+
+.details-paper-mobile {
+    position: absolute;
+    width: 90vw;
+    height: 85vh;
+    z-index: 99999999;
+    background-color: var(--paperbgcolor);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    align-items: center;
+}
+
+.details-button-mobile {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.details-image-sm {
+    max-height: 50%;
 }

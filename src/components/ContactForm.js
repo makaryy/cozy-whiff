@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Paper, Alert, Grid, TextField, Button } from "@mui/material";
+import {
+    Paper,
+    Alert,
+    Grid,
+    TextField,
+    Button,
+    Typography,
+    Snackbar
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Link } from "react-router-dom";
 import emailjs from "emailjs-com";
 import "../App.css";
 import { config } from "../config";
@@ -7,6 +17,7 @@ import { config } from "../config";
 function ContactForm() {
     const [alert, setAlert] = useState(false);
     const [formSent, setFormSent] = useState(false);
+    const [alertType, setAlertType] = useState("success");
     const [emailData, setEmailData] = useState({
         firstName: "",
         lastName: "",
@@ -35,11 +46,14 @@ function ContactForm() {
             )
             .then(
                 (result) => {
+                    setFormSent(true);
+                    setAlertType("success");
                     console.log(result.text);
                 },
                 (error) => {
-                    console.log(error.text);
                     setAlert(true);
+                    setAlertType("error");
+                    console.log(error.text);
                 }
             );
     };
@@ -48,19 +62,34 @@ function ContactForm() {
         <Paper className="contact" elevation={10}>
             <form onSubmit={sendEmail}>
                 <Grid container alignItems="center" spacing={3}>
-                    {alert ? (
-                        <Grid item xs={12}>
-                            <Alert severity="error">
-                                Musisz uzupełnić cały formularz
-                            </Alert>
-                        </Grid>
-                    ) : formSent ? (
-                        <Grid item xs={12}>
-                            <Alert severity="success">
-                                Formularz został wysłany
-                            </Alert>
-                        </Grid>
-                    ) : null}
+                    <Grid item xs={12}>
+                        <Typography variant="body1" color="secondary">
+                            <Link to="/" className="link">
+                                <ArrowBackIcon
+                                    sx={{ fontSize: "1rem", padding: 0 }}
+                                />
+                                &nbsp;Powrót
+                            </Link>
+                        </Typography>
+                    </Grid>
+                    <Snackbar
+                        open={formSent || alert}
+                        autoHideDuration={6000}
+                        onClose={() => {
+                            setFormSent(false);
+                            setAlert(false);
+                        }}
+                    >
+                        <Alert severity={alertType} sx={{ width: "100%" }}>
+                            {alertType === "success" && (
+                                <span>Wiadomość wysłana</span>
+                            )}
+                            {alertType === "error" && (
+                                <span>Nie udało się wysłać wiadomości</span>
+                            )}
+                        </Alert>
+                    </Snackbar>
+
                     <Grid item xs={12}>
                         <TextField
                             className="input"
