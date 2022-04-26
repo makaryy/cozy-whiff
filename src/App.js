@@ -5,15 +5,9 @@ import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import About from "./components/About";
 import { CssBaseline, Container } from "@mui/material";
-import {
-    StyledEngineProvider,
-    createTheme,
-    ThemeProvider
-} from "@mui/material/styles";
-import ksiazkaswieca from "./images/ksiazkaswieca.jpg";
+import { StyledEngineProvider, createTheme, ThemeProvider } from "@mui/material/styles";
 import ContactForm from "./components/ContactForm";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Details from "./components/Details";
 
 const theme = createTheme({
     palette: {
